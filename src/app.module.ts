@@ -6,6 +6,7 @@ import { envSchema } from './env.js';
 import { AuthenticateController } from './controllers/authenticate.controller.js';
 import { AuthModule } from './auth/auth.module.js';
 import { CreateQuestionController } from './controllers/create-question.controller.js';
+import { FetchRecentQuestionController } from './controllers/fetch-recent-questions.controller.js';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CreateQuestionController } from './controllers/create-question.controll
     CreateAccountController,
     AuthenticateController,
     CreateQuestionController,
+    FetchRecentQuestionController,
   ],
   providers: [PrismaService],
 })
