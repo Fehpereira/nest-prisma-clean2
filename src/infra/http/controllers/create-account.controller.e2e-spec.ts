@@ -3,7 +3,7 @@ import { AppModule } from '../../app.module.js';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { response } from 'express';
-import { PrismaService } from '../../prisma/prisma.service.js';
+import { PrismaService } from '../../database/prisma/prisma.service.js';
 
 describe('Create account (E2E)', () => {
   let app: INestApplication;
