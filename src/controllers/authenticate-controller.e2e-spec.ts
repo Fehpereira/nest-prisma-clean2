@@ -17,6 +17,9 @@ describe('Authenticate (E2E)', async () => {
     app = moduleRef.createNestApplication();
 
     prisma = moduleRef.get(PrismaService);
+    
+    await prisma.question.deleteMany();
+    await prisma.user.deleteMany();
 
     await app.init();
   });
@@ -38,12 +41,6 @@ describe('Authenticate (E2E)', async () => {
     expect(response.statusCode).toBe(201);
     expect(response.body).toEqual({
       access_token: expect.any(String),
-    });
-
-    await prisma.user.delete({
-      where: {
-        email: 'johndoe2@example.com',
-      },
     });
   });
 });

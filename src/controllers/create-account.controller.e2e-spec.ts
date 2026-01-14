@@ -18,6 +18,9 @@ describe('Create account (E2E)', () => {
 
     prisma = moduleRef.get(PrismaService);
 
+    await prisma.question.deleteMany();
+    await prisma.user.deleteMany();
+
     await app.init();
   });
 
@@ -37,11 +40,5 @@ describe('Create account (E2E)', () => {
     });
 
     expect(userOnDatabase).toBeTruthy();
-
-    await prisma.user.delete({
-      where: {
-        email: 'johndoe@example.com',
-      },
-    });
   });
 });
