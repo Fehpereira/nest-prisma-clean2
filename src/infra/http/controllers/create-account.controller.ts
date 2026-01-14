@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, Post, UsePipes } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service.js';
+import { PrismaService } from '../../prisma/prisma.service.js';
 import { ConflictException } from '@nestjs/common';
 import { hash } from 'bcryptjs';
 import { z } from 'zod';

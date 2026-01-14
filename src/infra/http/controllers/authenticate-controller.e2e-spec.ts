@@ -1,9 +1,9 @@
 import { INestApplication } from '@nestjs/common';
-import { AppModule } from 'src/app.module.js';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
-import { PrismaService } from 'src/prisma/prisma.service.js';
 import { hash } from 'bcryptjs';
+import { PrismaService } from '../../../infra/prisma/prisma.service.js';
+import { AppModule } from '../../../infra/app.module.js';
 
 describe('Authenticate (E2E)', async () => {
   let app: INestApplication;
@@ -17,7 +17,7 @@ describe('Authenticate (E2E)', async () => {
     app = moduleRef.createNestApplication();
 
     prisma = moduleRef.get(PrismaService);
-    
+
     await prisma.question.deleteMany();
     await prisma.user.deleteMany();
 
