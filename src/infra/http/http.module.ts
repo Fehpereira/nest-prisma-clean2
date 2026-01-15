@@ -4,6 +4,7 @@ import { CreateAccountController } from './controllers/create-account.controller
 import { CreateQuestionController } from './controllers/create-question.controller.js';
 import { FetchRecentQuestionController } from './controllers/fetch-recent-questions.controller.js';
 import { DatabaseModule } from '../database/database.module.js';
+import { CreateQuestionUseCase } from '../../domain/forum/application/use-cases/create-question.js';
 
 @Module({
   imports: [DatabaseModule],
@@ -13,5 +14,6 @@ import { DatabaseModule } from '../database/database.module.js';
     CreateQuestionController,
     FetchRecentQuestionController,
   ],
+  providers: [CreateQuestionUseCase],
 })
 export class HttpModule {}

@@ -1,4 +1,4 @@
-import { Either, left, right } from 'src/core/either.js';
+import { Either, left, right } from '../../../../core/either.js';
 import { Notification } from '../../enterprise/entities/notification.js';
 import type { NotificationsRepository } from '../repositories/notifications-repository.js';
 import { NotAllowedError } from 'src/core/errors/errors/not-allowed-error.js';

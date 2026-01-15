@@ -2,8 +2,9 @@ import { Question } from '../../enterprise/entities/question.js';
 import type { QuestionsRepository } from '../repositories/questions-repository.js';
 import { QuestionAttachment } from '../../enterprise/entities/question-attachment.js';
 import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list.js';
-import { Either, right } from 'src/core/either.js';
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
+import { Either, right } from '../../../../core/either.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
+import { Injectable } from '@nestjs/common';
 
 interface CreateQuestionUseCaseRequest {
   authorId: string;
@@ -19,6 +20,7 @@ type CreateQuestionUseCaseResponse = Either<
   }
 >;
 
+@Injectable()
 export class CreateQuestionUseCase {
   constructor(private questionsRepository: QuestionsRepository) {}
 

@@ -1,7 +1,7 @@
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 import { Question } from '../../../../domain/forum/enterprise/entities/question.js';
-import { Slug } from 'src/domain/forum/enterprise/entities/value-objects/slug.js';
-import { Question as PrismaQuestion } from 'src/generated/prisma/client.js';
+import { Slug } from '../../../../domain/forum/enterprise/entities/value-objects/slug.js';
+import { Question as PrismaQuestion } from '../../../../generated/prisma/client.js';
 
 export class PrismaQuestionMapper {
   static toDomain(raw: PrismaQuestion): Question {
