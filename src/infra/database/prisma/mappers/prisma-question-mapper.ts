@@ -20,4 +20,17 @@ export class PrismaQuestionMapper {
       new UniqueEntityId(raw.id),
     );
   }
+
+  static toPrisma(raw: Question): PrismaQuestion {
+    return {
+      id: raw.id.toString(),
+      authorId: raw.authorId.toString(),
+      title: raw.title,
+      slug: raw.slug.value,
+      content: raw.content,
+      bestAnswerId: raw.bestAnswerId ? raw.bestAnswerId.toString() : null,
+      createdAt: raw.createdAt,
+      updatedAt: raw.updatedAt ?? null,
+    };
+  }
 }
