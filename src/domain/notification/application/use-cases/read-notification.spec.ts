@@ -1,8 +1,8 @@
 import { InMemoryNotificationsRepository } from 'test/repositories/in-memory-notifications-repository.js';
 import { ReadNotificationUseCase } from './read-notification.js';
 import { makeNotification } from 'test/factories/make-notification.js';
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
-import { NotAllowedError } from 'src/core/errors/errors/not-allowed-error.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
+import { NotAllowedError } from '../../../../core/errors/errors/not-allowed-error.js';
 
 let inMemoryNotificationsRepository: InMemoryNotificationsRepository;
 let sut: ReadNotificationUseCase;

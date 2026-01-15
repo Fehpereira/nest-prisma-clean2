@@ -2,9 +2,9 @@ import { Slug } from './value-objects/slug.js';
 import dayjs from 'dayjs';
 import { QuestionAttachmentList } from './question-attachment-list.js';
 import { QuestionBestQuestionChosenEvent } from '../events/question-best-answer-chosen-event.js';
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
-import { AggregateRoot } from 'src/core/entities/aggregate-root.js';
-import { Optional } from 'src/core/types/optional.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
+import { AggregateRoot } from '../../../../core/entities/aggregate-root.js';
+import { Optional } from '../../../../core/types/optional.js';
 
 export interface QuestionProps {
   authorId: UniqueEntityId;

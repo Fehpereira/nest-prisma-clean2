@@ -1,6 +1,6 @@
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 import { Comment, type CommentProps } from './comment.js';
-import { Optional } from 'src/core/types/optional.js';
+import { Optional } from '../../../../core/types/optional.js';
 
 export interface AnswerCommentProps extends CommentProps {
   answerId: UniqueEntityId;

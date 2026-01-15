@@ -2,8 +2,8 @@ import { Answer } from '../../enterprise/entities/answer.js';
 import type { AnswersRepository } from '../repositories/answers-repository.js';
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment.js';
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list.js';
-import { Either, right } from 'src/core/either.js';
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
+import { Either, right } from '../../../../core/either.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 
 interface AnswerQuestionUseCaseRequest {
   instructorId: string;
@@ -32,7 +32,6 @@ export class AnswerQuestionUseCase {
       content,
       authorId: new UniqueEntityId(instructorId),
       questionId: new UniqueEntityId(questionId),
-      
     });
 
     const answerAttachments = attachmentsIds.map((attachmentId) => {

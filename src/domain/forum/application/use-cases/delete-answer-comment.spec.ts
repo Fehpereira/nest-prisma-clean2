@@ -1,8 +1,8 @@
 import { InMemoryAnswerCommentsRepository } from 'test/repositories/in-memory-answers-comments-repository.js';
 import { DeleteAnswerCommentUseCase } from './delete-answer-comment.js';
 import { makeAnswerComment } from 'test/factories/make-answer-comment.js';
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
-import { NotAllowedError } from 'src/core/errors/errors/not-allowed-error.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
+import { NotAllowedError } from '../../../../core/errors/errors/not-allowed-error.js';
 
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository;
 let sut: DeleteAnswerCommentUseCase;

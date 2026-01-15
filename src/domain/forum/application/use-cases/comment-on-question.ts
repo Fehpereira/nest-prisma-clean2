@@ -1,9 +1,9 @@
-import type { QuestionsRepository } from '../repositories/questions-repository.js';
+import { QuestionsRepository } from '../repositories/questions-repository.js';
 import { QuestionComment } from '../../enterprise/entities/question-comment.js';
 import type { QuestionCommentsRepository } from '../repositories/question-comments-repository.js';
-import { Either, left, right } from 'src/core/either.js';
-import { ResourceNotFoundError } from 'src/core/errors/errors/resource-not-found-error.js';
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
+import { Either, left, right } from '../../../../core/either.js';
+import { ResourceNotFoundError } from '../../../../core/errors/errors/resource-not-found-error.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 
 interface CommentOnQuestionUseCaseRequest {
   authorId: string;

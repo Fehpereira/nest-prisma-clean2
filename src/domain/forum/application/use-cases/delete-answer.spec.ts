@@ -2,9 +2,9 @@ import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory
 import { DeleteAnswerUseCase } from './delete-answer.js';
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository.js';
 import { makeAnswer } from 'test/factories/make-answer.js';
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 import { makeAnswerAttachment } from 'test/factories/make-answer-attachment.js';
-import { NotAllowedError } from 'src/core/errors/errors/not-allowed-error.js';
+import { NotAllowedError } from '../../../../core/errors/errors/not-allowed-error.js';
 
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;

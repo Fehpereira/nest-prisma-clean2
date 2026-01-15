@@ -3,10 +3,10 @@ import type { AnswersRepository } from '../repositories/answers-repository.js';
 import type { AnswerAttachmentsRepository } from '../repositories/answer-attachments-repository.js';
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list.js';
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment.js';
-import { NotAllowedError } from 'src/core/errors/errors/not-allowed-error.js';
-import { Either, left, right } from 'src/core/either.js';
-import { ResourceNotFoundError } from 'src/core/errors/errors/resource-not-found-error.js';
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
+import { NotAllowedError } from '../../../../core/errors/errors/not-allowed-error.js';
+import { Either, left, right } from '../../../../core/either.js';
+import { ResourceNotFoundError } from '../../../../core/errors/errors/resource-not-found-error.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 
 interface UpdateAnswerUseCaseRequest {
   authorId: string;

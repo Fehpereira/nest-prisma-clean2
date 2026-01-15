@@ -3,7 +3,7 @@ import type { Question } from '../../enterprise/entities/question.js';
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository.js';
 import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository.js';
 import { makeQuestion } from 'test/factories/make-question.js';
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
+import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 import { makeQuestionAttachment } from 'test/factories/make-question-attachment.js';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;

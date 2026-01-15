@@ -1,7 +1,7 @@
-import { NotAllowedError } from 'src/core/errors/errors/not-allowed-error.js';
+import { NotAllowedError } from '../../../../core/errors/errors/not-allowed-error.js';
 import type { AnswerCommentsRepository } from '../repositories/answer-comments-repository.js';
-import { Either, left, right } from 'src/core/either.js';
-import { ResourceNotFoundError } from 'src/core/errors/errors/resource-not-found-error.js';
+import { Either, left, right } from '../../../../core/either.js';
+import { ResourceNotFoundError } from '../../../../core/errors/errors/resource-not-found-error.js';
 
 interface DeleteAnswerCommentUseCaseRequest {
   authorId: string;

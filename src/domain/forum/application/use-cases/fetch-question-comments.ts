@@ -1,4 +1,4 @@
-import { Either, right } from 'src/core/either.js';
+import { Either, right } from '../../../../core/either.js';
 import type { QuestionComment } from '../../enterprise/entities/question-comment.js';
 import type { QuestionCommentsRepository } from '../repositories/question-comments-repository.js';
 
