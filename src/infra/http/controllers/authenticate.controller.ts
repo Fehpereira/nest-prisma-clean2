@@ -4,14 +4,13 @@ import {
   ConflictException,
   Controller,
   Post,
-  UnauthorizedException,
   UsePipes,
 } from '@nestjs/common';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe.js';
 import z from 'zod';
 import { AuthenticateStudentUseCase } from '../../../domain/forum/application/use-cases/authenticate-student.js';
-import { WrongCredentialsError } from '@/domain/forum/application/use-cases/errors/wrong-credentials-error.js';
-import { StudentAlreadyExistsError } from '@/domain/forum/application/use-cases/errors/student-already-exists.error.js';
+import { StudentAlreadyExistsError } from '../../../domain/forum/application/use-cases/errors/student-already-exists.error.js';
+import { Public } from '../../../infra/auth/public.js';
 
 const authenticateBodySchema = z.object({
   email: z.email(),
@@ -21,6 +20,7 @@ const authenticateBodySchema = z.object({
 type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>;
 
 @Controller('/sessions')
+@Public()
 export class AuthenticateController {
   constructor(private authenticateStudent: AuthenticateStudentUseCase) {}
 
