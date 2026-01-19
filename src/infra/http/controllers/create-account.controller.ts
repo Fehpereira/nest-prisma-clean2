@@ -1,7 +1,16 @@
-import { Body, Controller, HttpCode, Post, UsePipes } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  UnauthorizedException,
+  UsePipes,
+} from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe.js';
 import { RegisterStudentUseCase } from '../../../domain/forum/application/use-cases/register-student.js';
+import { WrongCredentialsError } from '@/domain/forum/application/use-cases/errors/wrong-credentials-error.js';
 
 const createAccountBodySchema = z.object({
   name: z.string(),
@@ -28,7 +37,14 @@ export class CreateAccountController {
     });
 
     if (result.isLeft()) {
-      throw new Error();
+      const error = result.value;
+
+      switch (error.constructor) {
+        case WrongCredentialsError:
+          throw new UnauthorizedException(error.message);
+        default:
+          throw new BadRequestException(error.message);
+      }
     }
   }
 }

@@ -1,7 +1,17 @@
-import { Body, Controller, Post, UsePipes } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  ConflictException,
+  Controller,
+  Post,
+  UnauthorizedException,
+  UsePipes,
+} from '@nestjs/common';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe.js';
 import z from 'zod';
 import { AuthenticateStudentUseCase } from '../../../domain/forum/application/use-cases/authenticate-student.js';
+import { WrongCredentialsError } from '@/domain/forum/application/use-cases/errors/wrong-credentials-error.js';
+import { StudentAlreadyExistsError } from '@/domain/forum/application/use-cases/errors/student-already-exists.error.js';
 
 const authenticateBodySchema = z.object({
   email: z.email(),
@@ -25,7 +35,14 @@ export class AuthenticateController {
     });
 
     if (result.isLeft()) {
-      throw new Error();
+      const error = result.value;
+
+      switch (error.constructor) {
+        case StudentAlreadyExistsError:
+          throw new ConflictException(error.message);
+        default:
+          throw new BadRequestException(error.message);
+      }
     }
 
     const { accessToken } = result.value;
