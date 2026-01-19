@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { envSchema } from './env.js';
+import { envSchema } from './env/env.js';
 import { AuthModule } from './auth/auth.module.js';
 import { HttpModule } from './http/http.module.js';
 import { DatabaseModule } from './database/database.module.js';
+import { EnvService } from './env/env.service.js';
+import { EnvModule } from './env/env.module.js';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { DatabaseModule } from './database/database.module.js';
     AuthModule,
     HttpModule,
     DatabaseModule,
+    EnvModule,
   ],
+  providers: [EnvService],
 })
 export class AppModule {}
