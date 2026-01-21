@@ -1,4 +1,7 @@
+import { PrismaQuestionCommentMapper } from '@/infra/database/prisma/mappers/prisma-question-comment-mapper.js';
+import { PrismaService } from '@/infra/database/prisma/prisma.service.js';
 import { faker } from '@faker-js/faker';
+import { Injectable } from '@nestjs/common';
 import { UniqueEntityId } from 'src/core/entities/unique-entity-id.js';
 import {
   QuestionComment,
@@ -20,4 +23,21 @@ export function makeQuestionComment(
   );
 
   return question;
+}
+
+@Injectable()
+export class QuestionFactory {
+  constructor(private prisma: PrismaService) {}
+
+  async makePrismaQuestion(
+    data?: Partial<QuestionCommentProps>,
+  ): Promise<QuestionComment> {
+    const questionComment = makeQuestionComment(data);
+
+    await this.prisma.comment.create({
+      data: PrismaQuestionCommentMapper.toPrisma(questionComment),
+    });
+
+    return questionComment;
+  }
 }
