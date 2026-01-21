@@ -20,6 +20,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
 
     return PrismaQuestionMapper.toDomain(question);
   }
+
   async findBySlug(slug: string): Promise<Question | null> {
     const question = await this.prisma.question.findUnique({
       where: { slug },
@@ -31,6 +32,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
 
     return PrismaQuestionMapper.toDomain(question);
   }
+
   async findManyRecent({ page }: PaginationParams): Promise<Question[]> {
     const perPage = 20;
 
@@ -44,6 +46,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
 
     return questions.map(PrismaQuestionMapper.toDomain);
   }
+
   async save(question: Question): Promise<void> {
     const data = PrismaQuestionMapper.toPrisma(question);
 
@@ -54,6 +57,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
       data,
     });
   }
+  
   async create(question: Question): Promise<void> {
     const data = PrismaQuestionMapper.toPrisma(question);
 
@@ -61,6 +65,7 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
       data,
     });
   }
+  
   async delete(question: Question): Promise<void> {
     const data = PrismaQuestionMapper.toPrisma(question);
 
