@@ -18,9 +18,6 @@ describe('Authenticate (E2E)', async () => {
 
     prisma = moduleRef.get(PrismaService);
 
-    await prisma.question.deleteMany();
-    await prisma.user.deleteMany();
-
     await app.init();
   });
 

@@ -20,9 +20,6 @@ describe('Fetch Recent Question (E2E)', () => {
     prisma = moduleRef.get(PrismaService);
     jwt = moduleRef.get(JwtService);
 
-    await prisma.question.deleteMany();
-    await prisma.user.deleteMany();
-
     await app.init();
   });
 

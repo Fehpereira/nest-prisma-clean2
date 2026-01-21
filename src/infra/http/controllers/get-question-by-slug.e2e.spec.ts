@@ -29,9 +29,6 @@ describe('Get question by slug (E2E)', () => {
     questionFactory = moduleRef.get(QuestionFactory);
     jwt = moduleRef.get(JwtService);
 
-    await prisma.question.deleteMany();
-    await prisma.user.deleteMany();
-
     await app.init();
   });
 
