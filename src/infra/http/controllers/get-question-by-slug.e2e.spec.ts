@@ -40,17 +40,17 @@ describe('Get question by slug (E2E)', () => {
     await questionFactory.makePrismaQuestion({
       authorId: user.id,
       title: 'Question-01',
-      slug: Slug.create('question-01'),
+      slug: Slug.create('question-02'),
     });
 
     const response = await request(app.getHttpServer())
-      .get('/questions/question-01')
+      .get('/questions/question-02')
       .set('Authorization', `Bearer ${accessToken}`)
       .send();
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({
-      question: expect.objectContaining({ title: 'Question 01' }),
+      question: expect.objectContaining({ title: 'Question-01' }),
     });
   });
 });

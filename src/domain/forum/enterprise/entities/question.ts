@@ -74,7 +74,7 @@ export class Question extends AggregateRoot<QuestionProps> {
   }
 
   set bestAnswerId(bestAnswerId: UniqueEntityId | undefined | null) {
-    if (bestAnswerId === undefined || bestAnswerId === null) {
+    if (!bestAnswerId) {
       return;
     }
 
