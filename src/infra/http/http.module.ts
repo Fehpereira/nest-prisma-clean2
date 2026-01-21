@@ -12,7 +12,9 @@ import { CryptographyModule } from '../cryptography/cryptography.module.js';
 import { GetQuestionBySlugController } from './controllers/get-question-by-slug.js';
 import { GetQuestionBySlugUseCase } from '../../domain/forum/application/use-cases/get-question-by-slug.js';
 import { UpdateQuestionController } from './controllers/update-question-controller.js';
-import { UpdateQuestionUseCase } from '@/domain/forum/application/use-cases/update-question.js';
+import { UpdateQuestionUseCase } from '../../domain/forum/application/use-cases/update-question.js';
+import { DeleteQuestionController } from './controllers/delete-question.js';
+import { DeleteQuestionUseCase } from '../../domain/forum/application/use-cases/delete-question.js';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -23,6 +25,7 @@ import { UpdateQuestionUseCase } from '@/domain/forum/application/use-cases/upda
     FetchRecentQuestionController,
     GetQuestionBySlugController,
     UpdateQuestionController,
+    DeleteQuestionController,
   ],
   providers: [
     CreateQuestionUseCase,
@@ -31,6 +34,7 @@ import { UpdateQuestionUseCase } from '@/domain/forum/application/use-cases/upda
     RegisterStudentUseCase,
     GetQuestionBySlugUseCase,
     UpdateQuestionUseCase,
+    DeleteQuestionUseCase,
   ],
 })
 export class HttpModule {}

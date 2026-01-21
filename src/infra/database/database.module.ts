@@ -9,11 +9,11 @@ import { PrismaAnswerAttachmentsRepository } from './prisma/repositories/prisma-
 import { QuestionsRepository } from '../../domain/forum/application/repositories/questions-repository.js';
 import { StudentsRepository } from '../../domain/forum/application/repositories/students-repository.js';
 import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-repository.js';
-import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository.js';
-import { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository.js';
-import { AnswerCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository.js';
-import { QuestionAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachments-repository.js';
-import { AnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository.js';
+import { AnswersRepository } from '../../domain/forum/application/repositories/answers-repository.js';
+import { QuestionCommentsRepository } from '../../domain/forum/application/repositories/question-comments-repository.js';
+import { AnswerCommentsRepository } from '../../domain/forum/application/repositories/answer-comments-repository.js';
+import { QuestionAttachmentsRepository } from '../../domain/forum/application/repositories/question-attachments-repository.js';
+import { AnswerAttachmentsRepository } from '../../domain/forum/application/repositories/answer-attachments-repository.js';
 
 @Module({
   providers: [
@@ -48,11 +48,7 @@ import { AnswerAttachmentsRepository } from '@/domain/forum/application/reposito
     PrismaService,
     StudentsRepository,
     QuestionsRepository,
-    PrismaAnswersRepository,
-    PrismaAnswerCommentsRepository,
-    PrismaQuestionCommentsRepository,
-    PrismaAnswerAttachmentsRepository,
-    PrismaQuestionAttachmentsRepository,
+    AnswersRepository,
   ],
 })
 export class DatabaseModule {}
