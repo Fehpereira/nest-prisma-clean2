@@ -9,7 +9,11 @@ export default defineConfig({
     globals: true,
     root: './',
     setupFiles: ['./test/setup-e2e.ts'],
+    // globalSetup: ['./test/global-setup.ts'],
     environment: 'node',
+    sequence: {
+      concurrent: false,
+    },
     pool: 'forks',
   },
   plugins: [

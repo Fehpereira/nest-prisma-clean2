@@ -7,24 +7,21 @@ function generateUniqueDatabaseURL(schemaId: string) {
   }
 
   const url = new URL(process.env.DATABASE_URL);
+
   url.searchParams.set('schema', schemaId);
+
   return url.toString();
 }
 
 const schemaId = randomUUID();
 
-beforeAll(() => {
+beforeAll(async () => {
   const databaseURL = generateUniqueDatabaseURL(schemaId);
 
   process.env.DATABASE_URL = databaseURL;
 
   execSync('npx prisma generate', { stdio: 'inherit' });
-  execSync('npx prisma migrate deploy', { stdio: 'inherit' });
+  execSync('npx prisma migrate deploy');
 });
 
-afterAll(() => {
-  execSync(`npx prisma db execute --stdin`, {
-    input: `DROP SCHEMA IF EXISTS "${schemaId}" CASCADE;`,
-    stdio: 'inherit',
-  });
-});
+afterAll(async () => {});

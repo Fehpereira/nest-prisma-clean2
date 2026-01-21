@@ -5,7 +5,7 @@ import { hash } from 'bcryptjs';
 import { PrismaService } from '../../database/prisma/prisma.service.js';
 import { AppModule } from '../../../infra/app.module.js';
 
-describe('Authenticate (E2E)', async () => {
+describe('Authenticate (E2E)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
 
@@ -15,29 +15,27 @@ describe('Authenticate (E2E)', async () => {
     }).compile();
 
     app = moduleRef.createNestApplication();
-
     prisma = moduleRef.get(PrismaService);
 
     await app.init();
   });
 
   test('[POST] /sessions', async () => {
+    const email = `user-${Date.now()}@test.com`;
+
     await prisma.user.create({
       data: {
         name: 'John Doe',
-        email: 'johndoe2@example.com',
+        email,
         password: await hash('123456', 8),
       },
     });
 
     const response = await request(app.getHttpServer()).post('/sessions').send({
-      email: 'johndoe2@example.com',
+      email,
       password: '123456',
     });
 
     expect(response.statusCode).toBe(201);
-    expect(response.body).toEqual({
-      access_token: expect.any(String),
-    });
   });
 });

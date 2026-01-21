@@ -24,10 +24,12 @@ describe('Fetch Recent Question (E2E)', () => {
   });
 
   test('[GET] /questions', async () => {
+    const email = `user-${Date.now()}@test.com`;
+
     const user = await prisma.user.create({
       data: {
         name: 'John Doe',
-        email: 'johndoe5@example.com',
+        email,
         password: '123456',
       },
     });
