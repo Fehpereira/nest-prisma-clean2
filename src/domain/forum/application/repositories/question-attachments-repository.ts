@@ -1,6 +1,10 @@
+import { Injectable } from '@nestjs/common';
 import type { QuestionAttachment } from '../../enterprise/entities/question-attachment.js';
 
-export interface QuestionAttachmentsRepository {
-  findManyByQuestionId(questionId: string): Promise<QuestionAttachment[]>;
-  deleteManyByQuestionId(questionId: string): Promise<void>;
+@Injectable()
+export abstract class QuestionAttachmentsRepository {
+  abstract findManyByQuestionId(
+    questionId: string,
+  ): Promise<QuestionAttachment[]>;
+  abstract deleteManyByQuestionId(questionId: string): Promise<void>;
 }
