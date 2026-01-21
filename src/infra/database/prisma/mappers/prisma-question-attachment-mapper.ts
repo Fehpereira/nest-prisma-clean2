@@ -1,4 +1,4 @@
-import { QuestionAttachment } from '@/domain/forum/enterprise/entities/question-attachment.js';
+import { QuestionAttachment } from '../../../../domain/forum/enterprise/entities/question-attachment.js';
 import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 import { Attachment as PrismaAttachment } from '../../../../generated/prisma/client.js';
 
