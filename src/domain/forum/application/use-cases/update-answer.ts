@@ -1,6 +1,6 @@
 import type { Answer } from '../../enterprise/entities/answer.js';
-import type { AnswersRepository } from '../repositories/answers-repository.js';
-import type { AnswerAttachmentsRepository } from '../repositories/answer-attachments-repository.js';
+import { AnswersRepository } from '../repositories/answers-repository.js';
+import { AnswerAttachmentsRepository } from '../repositories/answer-attachments-repository.js';
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list.js';
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment.js';
 import { NotAllowedError } from '../../../../core/errors/errors/not-allowed-error.js';
@@ -23,6 +23,7 @@ type UpdateAnswerUseCaseResponse = Either<
   }
 >;
 
+@Injectable()
 export class UpdateAnswerUseCase {
   constructor(
     private answersRepository: AnswersRepository,

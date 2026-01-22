@@ -1,6 +1,7 @@
+import { Injectable } from '@nestjs/common';
 import { Either, right } from '../../../../core/either.js';
 import type { AnswerComment } from '../../enterprise/entities/answer-comment.js';
-import type { AnswerCommentsRepository } from '../repositories/answer-comments-repository.js';
+import { AnswerCommentsRepository } from '../repositories/answer-comments-repository.js';
 
 interface FetchAnswersCommentsUseCaseRequest {
   answerId: string;
@@ -14,6 +15,7 @@ type FetchAnswersCommentsUseCaseResponse = Either<
   }
 >;
 
+@Injectable()
 export class FetchAnswersCommentsUseCase {
   constructor(private commentsRepository: AnswerCommentsRepository) {}
 

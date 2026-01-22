@@ -6,15 +6,14 @@ import { PrismaQuestionCommentsRepository } from './prisma/repositories/prisma-q
 import { PrismaAnswerCommentsRepository } from './prisma/repositories/prisma-answer-comments-repository.js';
 import { PrismaQuestionAttachmentsRepository } from './prisma/repositories/prisma-question-attachments-repository.js';
 import { PrismaAnswerAttachmentsRepository } from './prisma/repositories/prisma-answer-attachments-repository.js';
-import { QuestionsRepository } from '../../domain/forum/application/repositories/questions-repository.js';
 import { StudentsRepository } from '../../domain/forum/application/repositories/students-repository.js';
 import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-repository.js';
-import { AnswersRepository } from '../../domain/forum/application/repositories/answers-repository.js';
 import { QuestionCommentsRepository } from '../../domain/forum/application/repositories/question-comments-repository.js';
 import { AnswerCommentsRepository } from '../../domain/forum/application/repositories/answer-comments-repository.js';
-import { QuestionAttachmentsRepository } from '../../domain/forum/application/repositories/question-attachments-repository.js';
 import { AnswerAttachmentsRepository } from '../../domain/forum/application/repositories/answer-attachments-repository.js';
-import { ANSWERS_REPOSITORY } from '../../domain/forum/application/repositories/answers-repository.token.js';
+import { QuestionAttachmentsRepository } from '../../domain/forum/application/repositories/question-attachments-repository.js';
+import { QuestionsRepository } from '../../domain/forum/application/repositories/questions-repository.js';
+import { AnswersRepository } from '../../domain/forum/application/repositories/answers-repository.js';
 
 @Module({
   providers: [
@@ -27,7 +26,7 @@ import { ANSWERS_REPOSITORY } from '../../domain/forum/application/repositories/
       provide: StudentsRepository,
       useClass: PrismaStudentsRepository,
     },
-    { provide: ANSWERS_REPOSITORY, useClass: PrismaAnswersRepository },
+    { provide: AnswersRepository, useClass: PrismaAnswersRepository },
     {
       provide: QuestionCommentsRepository,
       useClass: PrismaQuestionCommentsRepository,
@@ -49,7 +48,11 @@ import { ANSWERS_REPOSITORY } from '../../domain/forum/application/repositories/
     PrismaService,
     StudentsRepository,
     QuestionsRepository,
-    ANSWERS_REPOSITORY,
+    QuestionCommentsRepository,
+    QuestionAttachmentsRepository,
+    AnswersRepository,
+    AnswerCommentsRepository,
+    AnswerAttachmentsRepository,
   ],
 })
 export class DatabaseModule {}

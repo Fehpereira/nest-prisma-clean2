@@ -1,6 +1,8 @@
+import { Injectable } from '@nestjs/common';
 import { PaginationParams } from '../../../../core/repositories/pagination-params.js';
 import type { Answer } from '../../enterprise/entities/answer.js';
 
+@Injectable()
 export abstract class AnswersRepository {
   abstract findById(id: string): Promise<Answer | null>;
   abstract findManyByQuestionId(

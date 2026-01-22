@@ -1,5 +1,5 @@
 import { Answer } from '../../enterprise/entities/answer.js';
-import type { AnswersRepository } from '../repositories/answers-repository.js';
+import { AnswersRepository } from '../repositories/answers-repository.js';
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment.js';
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list.js';
 import { Either, right } from '../../../../core/either.js';
@@ -23,10 +23,7 @@ type AnswerQuestionUseCaseResponse = Either<
 
 @Injectable()
 export class AnswerQuestionUseCase {
-  constructor(
-    @Inject(ANSWERS_REPOSITORY)
-    private answersRepository: AnswersRepository,
-  ) {}
+  constructor(private answersRepository: AnswersRepository) {}
 
   async execute({
     authorId,
