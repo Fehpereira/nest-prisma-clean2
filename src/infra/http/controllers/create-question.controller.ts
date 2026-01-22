@@ -33,8 +33,6 @@ export class CreateQuestionController {
       attachmentsIds: [],
     });
 
-    console.log('ESSE É O RESULTADO:', result);
-
     if (result.isLeft()) {
       throw new BadRequestException();
     }
