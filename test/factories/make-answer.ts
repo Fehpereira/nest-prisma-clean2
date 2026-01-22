@@ -12,7 +12,7 @@ export function makeAnswer(
   override?: Partial<AnswerProps>,
   id?: UniqueEntityId,
 ) {
-  const question = Answer.create(
+  const answer = Answer.create(
     {
       questionId: new UniqueEntityId(),
       authorId: new UniqueEntityId(),
@@ -22,14 +22,14 @@ export function makeAnswer(
     id,
   );
 
-  return question;
+  return answer;
 }
 
 @Injectable()
-export class QuestionFactory {
+export class AnswerFactory {
   constructor(private prisma: PrismaService) {}
 
-  async makePrismaQuestion(data?: Partial<AnswerProps>): Promise<Answer> {
+  async makePrismaAnswer(data?: Partial<AnswerProps>): Promise<Answer> {
     const answer = makeAnswer(data);
 
     await this.prisma.answer.create({
