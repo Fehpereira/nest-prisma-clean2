@@ -6,11 +6,13 @@ import { JwtService } from '@nestjs/jwt';
 import { StudentFactory } from 'test/factories/make-student.js';
 import { DatabaseModule } from '@faker-js/faker';
 import { PrismaService } from '@/infra/database/prisma/prisma.service.js';
+import { AnswerFactory } from 'test/factories/make-answer.js';
 import { QuestionFactory } from 'test/factories/make-question.js';
 
-describe('Delete Question (E2E)', () => {
+describe('Delete Answer (E2E)', () => {
   let app: INestApplication;
   let studentFactory: StudentFactory;
+  let answerFactory: AnswerFactory;
   let questionFactory: QuestionFactory;
   let prisma: PrismaService;
   let jwt: JwtService;
@@ -18,12 +20,13 @@ describe('Delete Question (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory],
+      providers: [StudentFactory, AnswerFactory, QuestionFactory],
     }).compile();
 
     app = moduleRef.createNestApplication();
 
     studentFactory = moduleRef.get(StudentFactory);
+    answerFactory = moduleRef.get(AnswerFactory);
     questionFactory = moduleRef.get(QuestionFactory);
     prisma = moduleRef.get(PrismaService);
     jwt = moduleRef.get(JwtService);
@@ -31,7 +34,7 @@ describe('Delete Question (E2E)', () => {
     await app.init();
   });
 
-  test('[DELETE] /questions/:id', async () => {
+  test('[DELETE] /answers/:id', async () => {
     const user = await studentFactory.makePrismaStudent();
 
     const accessToken = jwt.sign({ sub: user.id.toString() });
@@ -40,19 +43,24 @@ describe('Delete Question (E2E)', () => {
       authorId: user.id,
     });
 
+    const answer = await answerFactory.makePrismaAnswer({
+      authorId: user.id,
+      questionId: question.id,
+    });
+
     const response = await request(app.getHttpServer())
-      .delete(`/questions/${question.id.toString()}`)
+      .delete(`/answers/${answer.id.toString()}`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send();
 
     expect(response.statusCode).toBe(204);
 
-    const questionOnDatabase = await prisma.question.findUnique({
+    const answerOnDatabase = await prisma.answer.findUnique({
       where: {
-        id: question.id.toString(),
+        id: answer.id.toString(),
       },
     });
 
-    expect(questionOnDatabase).toBeNull();
+    expect(answerOnDatabase).toBeNull();
   });
 });
