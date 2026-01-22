@@ -21,6 +21,7 @@ import { UpdateAnswerController } from './controllers/update-answer.controller.j
 import { UpdateAnswerUseCase } from '../../domain/forum/application/use-cases/update-answer.js';
 import { DeleteAnswerController } from './controllers/delete-answer.controller.js';
 import { DeleteAnswerUseCase } from '../../domain/forum/application/use-cases/delete-answer.js';
+import { FetchQuestionAnswersUseCase } from '../../domain/forum/application/use-cases/fetch-question-answers.js';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -47,6 +48,7 @@ import { DeleteAnswerUseCase } from '../../domain/forum/application/use-cases/de
     AnswerQuestionUseCase,
     UpdateAnswerUseCase,
     DeleteAnswerUseCase,
+    FetchQuestionAnswersUseCase,
   ],
 })
 export class HttpModule {}

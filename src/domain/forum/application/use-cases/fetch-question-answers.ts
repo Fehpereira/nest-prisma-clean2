@@ -16,7 +16,7 @@ type FetchQuestionsAnswersUseCaseResponse = Either<
 >;
 
 @Injectable()
-export class FetchQuestionsAnswersUseCase {
+export class FetchQuestionAnswersUseCase {
   constructor(private answersRepository: AnswersRepository) {}
 
   async execute({
