@@ -5,49 +5,36 @@ import request from 'supertest';
 import { JwtService } from '@nestjs/jwt';
 import { StudentFactory } from 'test/factories/make-student.js';
 import { DatabaseModule } from '@/infra/database/database.module.js';
-import { QuestionFactory } from 'test/factories/make-question.js';
-import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug.js';
 
-describe('Get question by slug (E2E)', () => {
+describe('Upload attachment (E2E)', () => {
   let app: INestApplication;
   let studentFactory: StudentFactory;
-  let questionFactory: QuestionFactory;
   let jwt: JwtService;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory],
+      providers: [StudentFactory],
     }).compile();
 
     app = moduleRef.createNestApplication();
 
     studentFactory = moduleRef.get(StudentFactory);
-    questionFactory = moduleRef.get(QuestionFactory);
     jwt = moduleRef.get(JwtService);
 
     await app.init();
   });
 
-  test('[GET] /questions/:slug', async () => {
+  test('[POST] /attachments', async () => {
     const user = await studentFactory.makePrismaStudent();
 
     const accessToken = jwt.sign({ sub: user.id.toString() });
 
-    await questionFactory.makePrismaQuestion({
-      authorId: user.id,
-      title: 'Question-01',
-      slug: Slug.create('question-02'),
-    });
-
     const response = await request(app.getHttpServer())
-      .get('/questions/question-02')
+      .post('/attachments')
       .set('Authorization', `Bearer ${accessToken}`)
-      .send();
+      .attach('file', './test/e2e/sample-upload.pdf');
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual({
-      question: expect.objectContaining({ title: 'Question-01' }),
-    });
+    expect(response.statusCode).toBe(201);
   });
 });
