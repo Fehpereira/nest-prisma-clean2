@@ -3,12 +3,12 @@ import { Either, right } from '../../../../core/either.js';
 import type { QuestionComment } from '../../enterprise/entities/question-comment.js';
 import { QuestionCommentsRepository } from '../repositories/question-comments-repository.js';
 
-interface FetchQuestionsCommentsUseCaseRequest {
+interface FetchQuestionCommentsUseCaseRequest {
   questionId: string;
   page: number;
 }
 
-type FetchQuestionsCommentsUseCaseResponse = Either<
+type FetchQuestionCommentsUseCaseResponse = Either<
   null,
   {
     questionComments: QuestionComment[];
@@ -16,13 +16,13 @@ type FetchQuestionsCommentsUseCaseResponse = Either<
 >;
 
 @Injectable()
-export class FetchQuestionsCommentsUseCase {
+export class FetchQuestionCommentsUseCase {
   constructor(private commentsRepository: QuestionCommentsRepository) {}
 
   async execute({
     questionId,
     page,
-  }: FetchQuestionsCommentsUseCaseRequest): Promise<FetchQuestionsCommentsUseCaseResponse> {
+  }: FetchQuestionCommentsUseCaseRequest): Promise<FetchQuestionCommentsUseCaseResponse> {
     const questionComments = await this.commentsRepository.findManyByQuestionId(
       questionId,
       { page },
