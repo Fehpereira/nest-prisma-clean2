@@ -4,8 +4,7 @@ import { AnswerAttachment } from '../../enterprise/entities/answer-attachment.js
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list.js';
 import { Either, right } from '../../../../core/either.js';
 import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
-import { Inject, Injectable } from '@nestjs/common';
-import { ANSWERS_REPOSITORY } from '../repositories/answers-repository.token.js';
+import { Injectable } from '@nestjs/common';
 
 interface AnswerQuestionUseCaseRequest {
   authorId: string;
