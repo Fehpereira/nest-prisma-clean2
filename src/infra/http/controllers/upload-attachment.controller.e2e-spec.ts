@@ -4,7 +4,7 @@ import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { JwtService } from '@nestjs/jwt';
 import { StudentFactory } from 'test/factories/make-student.js';
-import { DatabaseModule } from '@/infra/database/database.module.js';
+import { DatabaseModule } from '../../../infra/database/database.module.js';
 
 describe('Upload attachment (E2E)', () => {
   let app: INestApplication;
@@ -36,5 +36,8 @@ describe('Upload attachment (E2E)', () => {
       .attach('file', './test/e2e/sample-upload.pdf');
 
     expect(response.statusCode).toBe(201);
+    expect(response.body).toEqual({
+      attachmentId: expect.any(String),
+    });
   });
 });

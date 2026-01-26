@@ -1,5 +1,11 @@
+import { config } from 'dotenv';
+
+import { PrismaClient } from '@/generated/prisma/client.js';
 import { execSync } from 'child_process';
 import { randomUUID } from 'crypto';
+
+config({ path: '.env', override: true });
+config({ path: '.env.test', override: true });
 
 function generateUniqueDatabaseURL(schemaId: string) {
   if (!process.env.DATABASE_URL) {
@@ -20,8 +26,12 @@ beforeAll(async () => {
 
   process.env.DATABASE_URL = databaseURL;
 
-  execSync('npx prisma generate', { stdio: 'inherit' });
+  execSync('npx prisma generate');
   execSync('npx prisma migrate deploy');
 });
 
-afterAll(async () => {});
+afterAll(async () => {
+  const prisma = new PrismaClient({ accelerateUrl: '' });
+
+  await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`);
+});

@@ -4,12 +4,11 @@ import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { JwtService } from '@nestjs/jwt';
 import { StudentFactory } from 'test/factories/make-student.js';
-import { DatabaseModule } from '@faker-js/faker';
-import { PrismaService } from '@/infra/database/prisma/prisma.service.js';
+import { PrismaService } from '../../../infra/database/prisma/prisma.service.js';
 import { QuestionFactory } from 'test/factories/make-question.js';
-import { QuestionCommentFactory } from 'test/factories/make-question-comment.js';
 import { AnswerFactory } from 'test/factories/make-answer.js';
 import { AnswerCommentFactory } from 'test/factories/make-answer-comment.js';
+import { DatabaseModule } from '@/infra/database/database.module.js';
 
 describe('Delete answer comment (E2E)', () => {
   let app: INestApplication;

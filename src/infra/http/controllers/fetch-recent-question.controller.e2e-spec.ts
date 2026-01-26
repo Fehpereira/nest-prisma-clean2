@@ -5,7 +5,7 @@ import request from 'supertest';
 import { JwtService } from '@nestjs/jwt';
 import { StudentFactory } from 'test/factories/make-student.js';
 import { QuestionFactory } from 'test/factories/make-question.js';
-import { DatabaseModule } from '@faker-js/faker';
+import { DatabaseModule } from '@/infra/database/database.module.js';
 
 describe('Fetch Recent Question (E2E)', () => {
   let app: INestApplication;

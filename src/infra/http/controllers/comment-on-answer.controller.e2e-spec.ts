@@ -4,10 +4,10 @@ import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { JwtService } from '@nestjs/jwt';
 import { StudentFactory } from 'test/factories/make-student.js';
-import { DatabaseModule } from '@faker-js/faker';
-import { PrismaService } from '@/infra/database/prisma/prisma.service.js';
+import { PrismaService } from '../../../infra/database/prisma/prisma.service.js';
 import { AnswerFactory } from 'test/factories/make-answer.js';
 import { QuestionFactory } from 'test/factories/make-question.js';
+import { DatabaseModule } from '@/infra/database/database.module.js';
 
 describe('Comment on answer (E2E)', () => {
   let app: INestApplication;
@@ -42,7 +42,7 @@ describe('Comment on answer (E2E)', () => {
     const question = await questionFactory.makePrismaQuestion({
       authorId: user.id,
     });
-    
+
     const answer = await answerFactory.makePrismaAnswer({
       questionId: question.id,
       authorId: user.id,

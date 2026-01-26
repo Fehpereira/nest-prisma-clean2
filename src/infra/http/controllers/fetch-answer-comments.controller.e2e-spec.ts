@@ -5,9 +5,9 @@ import request from 'supertest';
 import { JwtService } from '@nestjs/jwt';
 import { StudentFactory } from 'test/factories/make-student.js';
 import { QuestionFactory } from 'test/factories/make-question.js';
-import { DatabaseModule } from '@faker-js/faker';
 import { AnswerCommentFactory } from 'test/factories/make-answer-comment.js';
 import { AnswerFactory } from 'test/factories/make-answer.js';
+import { DatabaseModule } from '@/infra/database/database.module.js';
 
 describe('Fetch answer comments (E2E)', () => {
   let app: INestApplication;
