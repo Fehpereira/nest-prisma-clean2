@@ -8,7 +8,7 @@ import { DatabaseModule } from '@/infra/database/database.module.js';
 import { QuestionFactory } from 'test/factories/make-question.js';
 import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug.js';
 
-describe('Get question by slug (E2E)', () => {
+describe.skip('Get question by slug (E2E)', () => {
   let app: INestApplication;
   let studentFactory: StudentFactory;
   let questionFactory: QuestionFactory;

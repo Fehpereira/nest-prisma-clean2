@@ -1,43 +1,51 @@
-import { RegisterStudentUseCase } from './register-student.js';
-import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository.js';
-import { FakeHasher } from 'test/cryptography/fake-hasher.js';
+import { InMemoryAttachmentsRepository } from 'test/repositories/in-memory-attachments-repository.js';
+import { UploadAndCreateAttachmentUseCase } from './upload-and-create-attachment.js';
+import { FakeUploader } from 'test/storage/fake-uploader.js';
+import { InvalidAttachmentType } from './errors/invalid-attachment-type.js';
 
-let inMemoryStudentsRepository: InMemoryStudentsRepository;
-let fakeHasher: FakeHasher;
-let sut: RegisterStudentUseCase;
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository;
 
-describe('Register Student', () => {
+let fakeUploader: FakeUploader;
+let sut: UploadAndCreateAttachmentUseCase;
+
+describe('Upload and create attachment', () => {
   beforeEach(() => {
-    inMemoryStudentsRepository = new InMemoryStudentsRepository();
-    fakeHasher = new FakeHasher();
-    sut = new RegisterStudentUseCase(inMemoryStudentsRepository, fakeHasher);
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository();
+    fakeUploader = new FakeUploader();
+
+    sut = new UploadAndCreateAttachmentUseCase(
+      inMemoryAttachmentsRepository,
+      fakeUploader,
+    );
   });
 
-  it('should be able to register a new student', async () => {
+  it('should be able to upload and create an attachment', async () => {
     const result = await sut.execute({
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: '123456',
+      fileName: 'profile.png',
+      fileType: 'image/png',
+      body: Buffer.from(''),
     });
 
     expect(result.isRight()).toBe(true);
     expect(result.value).toEqual({
-      student: inMemoryStudentsRepository.items[0],
+      attachment: inMemoryAttachmentsRepository.items[0],
     });
+    expect(fakeUploader.uploads).toHaveLength(1);
+    expect(fakeUploader.uploads[0]).toEqual(
+      expect.objectContaining({
+        fileName: 'profile.png',
+      }),
+    );
   });
 
-  it('should hash student password upon registration', async () => {
+  it('should not be able to upload an attachment with invalid file type', async () => {
     const result = await sut.execute({
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: '123456',
+      fileName: 'audio.mp3',
+      fileType: 'audio/mpeg',
+      body: Buffer.from(''),
     });
 
-    const hashedPassword = await fakeHasher.hash('123456');
-
-    expect(result.isRight()).toBe(true);
-    expect(inMemoryStudentsRepository.items[0].password).toEqual(
-      hashedPassword,
-    );
+    expect(result.isLeft()).toBe(true);
+    expect(result.value).toBeInstanceOf(InvalidAttachmentType);
   });
 });
