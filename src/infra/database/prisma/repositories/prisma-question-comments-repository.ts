@@ -4,10 +4,35 @@ import { QuestionCommentsRepository } from '../../../../domain/forum/application
 import { QuestionComment } from '../../../../domain/forum/enterprise/entities/question-comment.js';
 import { PrismaService } from '../prisma.service.js';
 import { PrismaQuestionCommentMapper } from '../mappers/prisma-question-comment-mapper.js';
+import { CommentWithAuthor } from '../../../../domain/forum/enterprise/entities/value-objects/comment-with-author.js';
+import { PrismaCommentWithAuthorMapper } from '../mappers/prisma-comment-with-author-mapper.js';
 
 @Injectable()
 export class PrismaQuestionCommentsRepository implements QuestionCommentsRepository {
   constructor(private prisma: PrismaService) {}
+
+  async findManyByQuestionIdWithAuthor(
+    questionId: string,
+    { page }: PaginationParams,
+  ): Promise<CommentWithAuthor[]> {
+    const perPage = 20;
+
+    const questionComments = await this.prisma.comment.findMany({
+      where: {
+        questionId,
+      },
+      include: {
+        author: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: perPage,
+      skip: (page - 1) * perPage,
+    });
+
+    return questionComments.map(PrismaCommentWithAuthorMapper.toDomain);
+  }
 
   async findById(id: string): Promise<QuestionComment | null> {
     const questionComment = await this.prisma.comment.findUnique({

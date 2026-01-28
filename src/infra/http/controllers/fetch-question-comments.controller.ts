@@ -40,9 +40,9 @@ export class FetchQuestionCommentsController {
     }
 
     const {
-      value: { questionComments },
+      value: { comments },
     } = result;
 
-    return { questionComments: questionComments.map(CommentPresenter.toHTTP) };
+    return { comments: comments.map(CommentPresenter.toHTTP) };
   }
 }
