@@ -13,6 +13,7 @@ import { AnswerQuestionUseCase } from '../../../domain/forum/application/use-cas
 
 const answerQuestionBodySchema = z.object({
   content: z.string(),
+  attachments: z.array(z.uuid()),
 });
 
 const bodyValidationPipe = new ZodValidationPipe(answerQuestionBodySchema);
@@ -29,13 +30,13 @@ export class AnswerQuestionController {
     @CurrentUser() user: UserPayload,
     @Param('questionId') questionId: string,
   ) {
-    const { content } = body;
+    const { content, attachments } = body;
     const { sub: userId } = user;
 
     const result = await this.answerQuestion.execute({
       authorId: userId,
       content,
-      attachmentsIds: [],
+      attachmentsIds: attachments,
       questionId,
     });
 

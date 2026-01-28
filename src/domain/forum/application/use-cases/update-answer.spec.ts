@@ -6,20 +6,21 @@ import { makeAnswer } from 'test/factories/make-answer.js';
 import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 import { makeAnswerAttachment } from 'test/factories/make-answer-attachment.js';
 
-let inMemoryAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let sut: UpdateAnswerUseCase;
 let newAnswer: Answer;
 
 describe('Update Answer', () => {
   beforeEach(() => {
-    inMemoryAttachmentsRepository = new InMemoryAnswerAttachmentsRepository();
+    inMemoryAnswerAttachmentsRepository =
+      new InMemoryAnswerAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAttachmentsRepository,
+      inMemoryAnswerAttachmentsRepository,
     );
     sut = new UpdateAnswerUseCase(
       inMemoryAnswersRepository,
-      inMemoryAttachmentsRepository,
+      inMemoryAnswerAttachmentsRepository,
     );
     newAnswer = makeAnswer(
       {
@@ -32,7 +33,7 @@ describe('Update Answer', () => {
   it('should be able to update a answer', async () => {
     await inMemoryAnswersRepository.create(newAnswer);
 
-    inMemoryAttachmentsRepository.items.push(
+    inMemoryAnswerAttachmentsRepository.items.push(
       makeAnswerAttachment({
         answerId: newAnswer.id,
         attachmentId: new UniqueEntityId('1'),
@@ -75,5 +76,40 @@ describe('Update Answer', () => {
     });
 
     expect(result.value).toBeInstanceOf(Error);
+  });
+
+  it('should sync new and removed attachments when editing an answer', async () => {
+    await inMemoryAnswersRepository.create(newAnswer);
+
+    inMemoryAnswerAttachmentsRepository.items.push(
+      makeAnswerAttachment({
+        answerId: newAnswer.id,
+        attachmentId: new UniqueEntityId('1'),
+      }),
+      makeAnswerAttachment({
+        answerId: newAnswer.id,
+        attachmentId: new UniqueEntityId('2'),
+      }),
+    );
+
+    const result = await sut.execute({
+      answerId: newAnswer.id.toValue(),
+      authorId: 'author-1',
+      content: 'Conteúdo teste',
+      attachmentsIds: ['1', '3'],
+    });
+
+    expect(result.isRight()).toBe(true);
+    expect(inMemoryAnswerAttachmentsRepository.items).toHaveLength(2);
+    expect(inMemoryAnswerAttachmentsRepository.items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          attachmentId: new UniqueEntityId('1'),
+        }),
+        expect.objectContaining({
+          attachmentId: new UniqueEntityId('3'),
+        }),
+      ]),
+    );
   });
 });

@@ -43,11 +43,22 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 
     this.items[itemIdex] = answer;
 
+    await this.answerAttachmentsRepository.createMany(
+      answer.attachments.getNewItems(),
+    );
+    await this.answerAttachmentsRepository.deleteMany(
+      answer.attachments.getRemovedItems(),
+    );
+
     DomainEvents.dispatchEventsForAggreate(answer.id);
   }
 
   async create(answer: Answer): Promise<void> {
     this.items.push(answer);
+
+    await this.answerAttachmentsRepository.createMany(
+      answer.attachments.getItems(),
+    );
 
     DomainEvents.dispatchEventsForAggreate(answer.id);
   }

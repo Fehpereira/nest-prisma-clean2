@@ -14,6 +14,7 @@ import { UpdateAnswerUseCase } from '../../../domain/forum/application/use-cases
 
 const updateAnswerBodySchema = z.object({
   content: z.string(),
+  attachments: z.array(z.uuid()).default([]),
 });
 
 const bodyValidationPipe = new ZodValidationPipe(updateAnswerBodySchema);
@@ -31,14 +32,14 @@ export class UpdateAnswerController {
     @CurrentUser() user: UserPayload,
     @Param('id') answerId: string,
   ) {
-    const { content } = body;
+    const { content, attachments } = body;
     const { sub: userId } = user;
 
     const result = await this.updateAnswer.execute({
       content,
       authorId: userId,
       answerId,
-      attachmentsIds: [],
+      attachmentsIds: attachments,
     });
 
     if (result.isLeft()) {
