@@ -15,6 +15,7 @@ import { UpdateQuestionUseCase } from '../../../domain/forum/application/use-cas
 const updateQuestionBodySchema = z.object({
   title: z.string(),
   content: z.string(),
+  attachments: z.array(z.uuid()),
 });
 
 const bodyValidationPipe = new ZodValidationPipe(updateQuestionBodySchema);
@@ -32,14 +33,14 @@ export class UpdateQuestionController {
     @CurrentUser() user: UserPayload,
     @Param('id') questionId: string,
   ) {
-    const { title, content } = body;
+    const { title, content, attachments } = body;
     const { sub: userId } = user;
 
     const result = await this.updateQuestion.execute({
       title,
       content,
       authorId: userId,
-      attachmentsIds: [],
+      attachmentsIds: attachments,
       questionId,
     });
 
