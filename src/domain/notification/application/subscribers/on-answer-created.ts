@@ -1,5 +1,5 @@
 import { EventHandler } from '../../../../core/events/event-handler.js';
-import type { SendNotificationUseCase } from '../use-cases/send-notification.js';
+import { SendNotificationUseCase } from '../use-cases/send-notification.js';
 import { QuestionsRepository } from '../../../../domain/forum/application/repositories/questions-repository.js';
 import { DomainEvents } from '../../../../core/events/domain-events.js';
 import { AnswerCreatedEvent } from '../../../../domain/forum/enterprise/events/answer-created-event.js';
