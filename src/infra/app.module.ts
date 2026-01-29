@@ -6,6 +6,7 @@ import { HttpModule } from './http/http.module.js';
 import { DatabaseModule } from './database/database.module.js';
 import { EnvService } from './env/env.service.js';
 import { EnvModule } from './env/env.module.js';
+import { EventsModule } from './events/events.module.js';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { EnvModule } from './env/env.module.js';
     HttpModule,
     DatabaseModule,
     EnvModule,
+    EventsModule,
   ],
   providers: [EnvService],
 })

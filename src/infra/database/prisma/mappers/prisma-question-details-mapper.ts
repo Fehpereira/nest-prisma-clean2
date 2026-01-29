@@ -22,7 +22,9 @@ export class PrismaQuestionDetailsMapper {
       title: raw.title,
       slug: Slug.create(raw.slug),
       attachments: raw.attachments.map(PrismaAttachmentMapper.toDomain),
-      bestAnswerId: raw.bestAnswerId ? new UniqueEntityId( raw.bestAnswerId) : null,
+      bestAnswerId: raw.bestAnswerId
+        ? new UniqueEntityId(raw.bestAnswerId)
+        : null,
       content: raw.content,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
