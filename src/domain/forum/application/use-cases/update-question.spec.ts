@@ -5,18 +5,27 @@ import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memo
 import { makeQuestion } from 'test/factories/make-question.js';
 import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 import { makeQuestionAttachment } from 'test/factories/make-question-attachment.js';
+import { InMemoryAttachmentsRepository } from 'test/repositories/in-memory-attachments-repository.js';
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository.js';
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository;
 let sut: UpdateQuestionUseCase;
 let newQuestion: Question;
 
 describe('Update Question', () => {
   beforeEach(() => {
+    inMemoryStudentsRepository = new InMemoryStudentsRepository();
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository();
+
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository,
     );
     sut = new UpdateQuestionUseCase(
       inMemoryQuestionsRepository,

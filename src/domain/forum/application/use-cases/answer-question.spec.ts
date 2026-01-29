@@ -2,7 +2,6 @@ import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-r
 import { AnswerQuestionUseCase } from './answer-question.js';
 import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answers-attachments-repository.js';
 import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
-import { makeQuestion } from 'test/factories/make-question.js';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;

@@ -7,11 +7,15 @@ import { makeQuestion } from 'test/factories/make-question.js';
 import { makeAnswer } from 'test/factories/make-answer.js';
 import { UniqueEntityId } from '../../../../core/entities/unique-entity-id.js';
 import { NotAllowedError } from '../../../../core/errors/errors/not-allowed-error.js';
+import { InMemoryAttachmentsRepository } from 'test/repositories/in-memory-attachments-repository.js';
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository.js';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository;
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
 
 let sut: ChooseQuestionBestAnswerUseCase;
 
@@ -24,8 +28,13 @@ describe('Choose Question Best Answer', () => {
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
       inMemoryAnswerAttachmentsRepository,
     );
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepository();
+    inMemoryStudentsRepository = new InMemoryStudentsRepository();
+
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository,
     );
     sut = new ChooseQuestionBestAnswerUseCase(
       inMemoryQuestionsRepository,
